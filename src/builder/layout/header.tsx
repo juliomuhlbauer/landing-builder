@@ -2,14 +2,12 @@ import { useRoute } from "@/builder/hooks";
 import { supabase } from "@/lib/supabase";
 import { bgColor } from "@/theme/colors";
 import { PageProps } from "@/types/pages";
-import { useUser } from "@/utils/auth";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { useColorMode } from "@chakra-ui/color-mode";
 import Icon from "@chakra-ui/icon";
 import { Heading, HStack, Link } from "@chakra-ui/layout";
 import { Container, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 import { FC, memo } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { BsFillMoonFill, BsFillSunFill, BsGearFill } from "react-icons/bs";
@@ -74,16 +72,6 @@ const Header: FC<HeaderProps> = ({ title }) => {
           </Heading>
         </HStack>
         <HStack>
-          <IconButton
-            variant="ghost"
-            aria-label="Toggle color mode"
-            onClick={toggleColorMode}
-            icon={
-              <Icon
-                as={colorMode === "light" ? BsFillMoonFill : BsFillSunFill}
-              />
-            }
-          />
           {isEditor && (
             <>
               <IconButton

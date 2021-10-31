@@ -71,7 +71,6 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
   const [slug, setSlug] = useState<string>("");
   const [published, setPublished] = useState<boolean>(false);
 
-  console.log(pagePublished);
   const [isValid, setValid] = useState(false);
 
   useEffect(() => {

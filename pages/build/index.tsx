@@ -46,7 +46,7 @@ const HomeBuild = () => {
     if (userId) {
       getPages();
     }
-  }, [router, userId]);
+  }, [router, setPages, userId]);
 
   return (
     <>

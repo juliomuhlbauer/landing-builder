@@ -1,35 +1,20 @@
-import { UserMenu } from "@/builder/components/dialogs/user-menu";
 import { useRoute } from "@/builder/hooks";
-import { bgColor } from "@/theme/colors";
 import { PageProps } from "@/types/pages";
-import { signIn, useUser } from "@/utils/auth";
-import { Button, IconButton } from "@chakra-ui/button";
-import { useColorMode } from "@chakra-ui/color-mode";
-import Icon from "@chakra-ui/icon";
+import { Button } from "@chakra-ui/button";
 import { Heading, HStack, Link } from "@chakra-ui/layout";
-import { Container, Avatar } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FC } from "react";
-import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 
 interface HeaderProps {
   page: PageProps;
 }
 
 const Header: FC<HeaderProps> = ({ page }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   const { isEditor } = useRoute();
 
-  const { user } = useUser();
-
   return (
-    <Container
-      as="header"
-      py={4}
-      maxW="container.lg"
-      //  {...bgColor}
-    >
+    <Container as="header" py={4} maxW="container.lg">
       <HStack justify="space-between">
         <HStack spacing={{ base: 2, md: 4 }}>
           {isEditor ? (
@@ -48,39 +33,8 @@ const Header: FC<HeaderProps> = ({ page }) => {
             </NextLink>
           )}
         </HStack>
-        <HStack>
-          {!isEditor && (
-            <IconButton
-              variant="ghost"
-              aria-label="Toggle color mode"
-              onClick={toggleColorMode}
-              icon={
-                <Icon
-                  as={colorMode === "light" ? BsFillMoonFill : BsFillSunFill}
-                />
-              }
-            />
-          )}
-          {user ? (
-            <HStack>
-              <UserMenu />
-              <NextLink href="/build" passHref>
-                <Button as={Link} colorScheme="primary">
-                  Start
-                </Button>
-              </NextLink>
-            </HStack>
-          ) : (
-            <Button
-              colorScheme="primary"
-              onClick={() => {
-                signIn();
-              }}
-            >
-              Get started
-            </Button>
-          )}
-        </HStack>
+
+        <Button colorScheme="primary">Get started</Button>
       </HStack>
     </Container>
   );

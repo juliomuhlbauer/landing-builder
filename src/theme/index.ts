@@ -5,7 +5,7 @@ import components from "./components";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
-  useSystemColorMode: false,
+  useSystemColorMode: true,
 };
 
 const fonts = {

@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/layout";
 import Head from "next/head";
 import PageLayout from "@/pages/layout";
 import { PageProps } from "@/types/pages";
+import { HomeHeader } from "@/builder/home/header";
 
 const sections: SectionProps[] = [
   {
@@ -27,7 +28,7 @@ const page: PageProps = {
   title: "Landing builder",
   icon: "🚀",
   sections,
-  slug: "landing-builder",
+  slug: "",
   updatedAt: new Date(),
   createdAt: new Date(),
   id: "1",
@@ -48,7 +49,7 @@ const HomePage = () => {
         <title>Landing Builder</title>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <PageLayout page={page}>
+      <PageLayout page={page} header={<HomeHeader page={page} />}>
         <Box my={16}>
           <Sections sections={sections} />
         </Box>

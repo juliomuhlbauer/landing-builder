@@ -11,13 +11,19 @@ import {
   HStack,
   Icon,
   Text,
+  IconButton,
+  useColorMode,
+  Button,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FiLogOut } from "react-icons/fi";
+import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 
 export const UserMenu = () => {
   const { user } = useUser();
   const router = useRouter();
+
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box>
@@ -32,7 +38,7 @@ export const UserMenu = () => {
         />
 
         <MenuList>
-          <MenuGroup fontSize="lg" title="Profile">
+          <MenuGroup title="Profile" fontSize="lg" fontWeight="bold">
             <MenuItem>
               <HStack spacing={4}>
                 <Avatar
@@ -49,6 +55,28 @@ export const UserMenu = () => {
               </HStack>
             </MenuItem>
           </MenuGroup>
+
+          <MenuDivider />
+
+          <MenuItem closeOnSelect={false}>
+            <HStack justify="space-between" w="100%">
+              <Text fontSize="lg" fontWeight="bold">
+                Theme
+              </Text>
+              <Button
+                colorScheme="primary"
+                aria-label="Toggle color mode"
+                onClick={toggleColorMode}
+                leftIcon={
+                  <Icon
+                    as={colorMode === "light" ? BsFillSunFill : BsFillMoonFill}
+                  />
+                }
+              >
+                {colorMode === "light" ? "Light" : "Dark"}
+              </Button>
+            </HStack>
+          </MenuItem>
 
           <MenuDivider />
 
