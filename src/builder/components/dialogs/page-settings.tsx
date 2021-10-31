@@ -64,6 +64,8 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
   const pageId = useBuilderStore((state) => state.page.id);
   const pagePublished = useBuilderStore((state) => state.page.published);
 
+  console.log(pagePublished);
+
   const updatePage = useBuilderStore((state) => state.updatePage);
 
   const [title, setTitle] = useState<string>("");
@@ -78,7 +80,7 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
     setIcon(pageIcon);
     setSlug(pageSlug);
     setPublished(pagePublished);
-  }, [modal.isOpen]);
+  }, [modal.isOpen, pageIcon, pagePublished, pageSlug, pageTitle]);
 
   useEffect(() => {
     if (
@@ -89,8 +91,16 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
     ) {
       setValid(false);
     } else setValid(true);
-  }),
-    [title, icon, slug, published];
+  }, [
+    title,
+    pageTitle,
+    icon,
+    pageIcon,
+    slug,
+    pageSlug,
+    published,
+    pagePublished,
+  ]);
 
   return (
     <Modal isOpen={modal.isOpen} onClose={modal.onClose} isCentered>
