@@ -2,30 +2,22 @@ import { useRoute } from "@/builder/hooks";
 import { supabase } from "@/lib/supabase";
 import { bgColor } from "@/theme/colors";
 import { PageProps } from "@/types/pages";
-import { signOut, useUser } from "@/utils/auth";
+import { useUser } from "@/utils/auth";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { useColorMode } from "@chakra-ui/color-mode";
 import Icon from "@chakra-ui/icon";
-import { Heading, HStack, Link, Text } from "@chakra-ui/layout";
-import { Avatar, Box, Container, useDisclosure } from "@chakra-ui/react";
+import { Heading, HStack, Link } from "@chakra-ui/layout";
+import { Container, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import { FC, memo } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { BsFillMoonFill, BsFillSunFill, BsGearFill } from "react-icons/bs";
-import { FiChevronDown, FiLogOut } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
 import { MdPublic } from "react-icons/md";
 import PageSettings from "../components/dialogs/page-settings";
+import { UserMenu } from "../components/dialogs/user-menu";
 import { useBuilderStore } from "../store/use-builder";
-
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  MenuGroup,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
 
 interface HeaderProps {
   title: string;
@@ -51,10 +43,6 @@ const Header: FC<HeaderProps> = ({ title }) => {
   const { isEditor } = useRoute();
 
   const settingsModal = useDisclosure();
-
-  const { user } = useUser();
-
-  const router = useRouter();
 
   return (
     <Container
@@ -110,48 +98,7 @@ const Header: FC<HeaderProps> = ({ title }) => {
           )}
 
           <PageSettings modal={settingsModal} />
-          <Box>
-            <Menu>
-              <MenuButton
-                as={Avatar}
-                name={user?.user_metadata?.full_name}
-                src={user?.user_metadata.avatar_url}
-                cursor="pointer"
-                ring={2}
-                ringColor="primary.200"
-              />
-
-              <MenuList>
-                <MenuGroup fontSize="lg" title="Profile">
-                  <MenuItem>
-                    <HStack spacing={4}>
-                      <Avatar
-                        name={user?.user_metadata?.full_name}
-                        size="md"
-                        src={user?.user_metadata?.avatar_url}
-                        objectFit="contain"
-                      />
-                      <Text fontSize="lg" fontWeight="semibold">
-                        {user?.user_metadata?.full_name}
-                      </Text>
-                    </HStack>
-                  </MenuItem>
-                </MenuGroup>
-
-                <MenuDivider />
-
-                <MenuItem
-                  icon={<Icon as={FiLogOut} boxSize={5} />}
-                  onClick={() => {
-                    signOut();
-                    router.push("/");
-                  }}
-                >
-                  SignOut
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Box>
+          <UserMenu />
         </HStack>
       </HStack>
     </Container>

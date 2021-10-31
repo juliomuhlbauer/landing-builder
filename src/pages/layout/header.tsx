@@ -1,3 +1,4 @@
+import { UserMenu } from "@/builder/components/dialogs/user-menu";
 import { useRoute } from "@/builder/hooks";
 import { bgColor } from "@/theme/colors";
 import { PageProps } from "@/types/pages";
@@ -61,17 +62,14 @@ const Header: FC<HeaderProps> = ({ page }) => {
             />
           )}
           {user ? (
-            <NextLink href="/build" passHref>
-              <Button
-                as={Link}
-                colorScheme="primary"
-                leftIcon={
-                  <Avatar boxSize={8} src={user.user_metadata.avatar_url} />
-                }
-              >
-                Start
-              </Button>
-            </NextLink>
+            <HStack>
+              <UserMenu />
+              <NextLink href="/build" passHref>
+                <Button as={Link} colorScheme="primary">
+                  Start
+                </Button>
+              </NextLink>
+            </HStack>
           ) : (
             <Button
               colorScheme="primary"

@@ -64,8 +64,6 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
   const pageId = useBuilderStore((state) => state.page.id);
   const pagePublished = useBuilderStore((state) => state.page.published);
 
-  console.log(pagePublished);
-
   const updatePage = useBuilderStore((state) => state.updatePage);
 
   const [title, setTitle] = useState<string>("");
@@ -73,6 +71,7 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
   const [slug, setSlug] = useState<string>("");
   const [published, setPublished] = useState<boolean>(false);
 
+  console.log(pagePublished);
   const [isValid, setValid] = useState(false);
 
   useEffect(() => {

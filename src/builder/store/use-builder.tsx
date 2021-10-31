@@ -21,6 +21,12 @@ interface UpdateProps {
   content: string;
 }
 
+interface UpdatePage {
+  title: string;
+  icon: string;
+  slug: string;
+  published: boolean;
+}
 export interface BuilderStore {
   page: PageProps;
   setPage: (page: PageProps) => void;
@@ -33,7 +39,7 @@ export interface BuilderStore {
     icon: string;
     user: string;
   }) => Promise<PageProps | null>;
-  updatePage: ({ title, icon, slug, published }: Partial<PageProps>) => void;
+  updatePage: ({ title, icon, slug, published }: UpdatePage) => void;
   addSection: () => void;
   removeSection: (id: string) => void;
   addButton: (id: string) => void;
@@ -67,18 +73,10 @@ export const useBuilderStore = create<BuilderStore>(
     },
     updatePage: ({ title, icon, slug, published }) => {
       set(({ page }) => {
-        if (title) {
-          page.title = title;
-        }
-        if (icon) {
-          page.icon = icon;
-        }
-        if (slug) {
-          page.slug = slug;
-        }
-        if (published) {
-          page.published = published;
-        }
+        page.title = title;
+        page.icon = icon;
+        page.slug = slug;
+        page.published = published;
       });
     },
     addSection: () => {
