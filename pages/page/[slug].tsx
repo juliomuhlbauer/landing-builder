@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       page: data,
     },
 
-    revalidate: 10,
+    revalidate: 60,
   };
 };
 

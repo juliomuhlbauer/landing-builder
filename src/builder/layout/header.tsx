@@ -3,14 +3,13 @@ import { supabase } from "@/lib/supabase";
 import { bgColor } from "@/theme/colors";
 import { PageProps } from "@/types/pages";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
-import { useColorMode } from "@chakra-ui/color-mode";
 import Icon from "@chakra-ui/icon";
 import { Heading, HStack, Link } from "@chakra-ui/layout";
 import { Container, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FC, memo } from "react";
 import { AiFillHome } from "react-icons/ai";
-import { BsFillMoonFill, BsFillSunFill, BsGearFill } from "react-icons/bs";
+import { BsGearFill } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
 import { MdPublic } from "react-icons/md";
 import PageSettings from "../components/dialogs/page-settings";
@@ -36,8 +35,6 @@ const savePage = async (page: PageProps) => {
 };
 
 const Header: FC<HeaderProps> = ({ title }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   const { isEditor } = useRoute();
 
   const settingsModal = useDisclosure();
