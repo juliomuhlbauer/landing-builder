@@ -6,11 +6,13 @@ import { Button } from "@chakra-ui/button";
 import { UseDisclosureReturn } from "@chakra-ui/hooks";
 import { Link, Stack } from "@chakra-ui/layout";
 import {
+  chakra,
   Checkbox,
   FormControl,
   FormLabel,
   HStack,
   Icon,
+  IconButton,
   Input,
   Modal,
   ModalBody,
@@ -18,7 +20,12 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@chakra-ui/react";
+import { BaseEmoji, Picker } from "emoji-mart";
+import "emoji-mart/css/emoji-mart.css";
 import { FC, memo, useEffect, useState } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
@@ -103,10 +110,10 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
   return (
     <Modal isOpen={modal.isOpen} onClose={modal.onClose} isCentered>
       <ModalOverlay />
-      <ModalContent {...bgColor} pb={32}>
+      <ModalContent {...bgColor}>
         <ModalHeader>Page settings</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody pb={32}>
           <Stack spacing={4}>
             <FormControl id="title">
               <FormLabel>Page title</FormLabel>
@@ -117,30 +124,31 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
                 autoComplete="off"
               />
             </FormControl>
+
             <FormControl id="icon">
               <FormLabel>Page icon</FormLabel>
-              <Input
-                value={icon}
-                onChange={(e) => {
-                  const input = e.target.value;
-                  const text = input.charAt(1);
-                  if (text) {
-                    setIcon(text);
-                  }
-                }}
-                type="text"
-                autoComplete="off"
-              />
-            </FormControl>
 
-            <Checkbox
-              isChecked={published}
-              onChange={(e) => {
-                setPublished(e.target.checked);
-              }}
-            >
-              Published
-            </Checkbox>
+              <Popover isLazy>
+                <PopoverTrigger>
+                  <IconButton
+                    aria-label="Pick a emoji"
+                    icon={<chakra.span>{icon}</chakra.span>}
+                  />
+                </PopoverTrigger>
+                <PopoverContent bg="transparent">
+                  <Picker
+                    onSelect={(emoji: BaseEmoji) => {
+                      if (emoji.native) {
+                        setIcon(emoji.native);
+                      }
+                    }}
+                    emoji="point_up"
+                    title="Pick a emoji"
+                    theme="auto"
+                  />
+                </PopoverContent>
+              </Popover>
+            </FormControl>
 
             <FormControl id="published">
               <FormLabel>Page url</FormLabel>
@@ -153,6 +161,17 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
                 autoComplete="off"
               />
             </FormControl>
+
+            <Checkbox
+              size="lg"
+              colorScheme="primary"
+              isChecked={published}
+              onChange={(e) => {
+                setPublished(e.target.checked);
+              }}
+            >
+              Published
+            </Checkbox>
 
             <HStack justify="right">
               <Button
