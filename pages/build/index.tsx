@@ -34,9 +34,11 @@ const HomeBuild = () => {
   useEffect(() => {
     async function getPages() {
       const { data, error } = await supabase
-        .from<PageProps>("Pages")
-        .select("title, id, slug, createdAt, updatedAt, icon, published")
-        .match({ user: userId });
+        .from<PageProps>("pages")
+        .select("title, id, slug, created_at, updated_at, icon, published")
+        .match({ user: userId })
+        .order("updated_at", { ascending: false });
+
       if (error || data === null) {
         console.error(error);
       } else {
@@ -47,6 +49,13 @@ const HomeBuild = () => {
       getPages();
     }
   }, [router, setPages, userId]);
+
+  if (pages.length > 1) {
+    console.log(
+      new Date(pages[0].updated_at).getTime() -
+        new Date(pages[1].updated_at).getTime()
+    );
+  }
 
   return (
     <>
@@ -77,7 +86,7 @@ const HomeBuild = () => {
           </HStack>
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
             {pages.map((page) => (
-              <NextLink key={page.id} href={`/build/${page.id}`} passHref>
+              <NextLink key={page.id} href={`/build/${page.slug}`} passHref>
                 <Link
                   boxShadow="sm"
                   p={4}

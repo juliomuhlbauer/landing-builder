@@ -41,20 +41,20 @@ const savePage = async ({
   published,
 }: Partial<PageProps>) => {
   await supabase
-    .from("Pages")
+    .from("pages")
     .update({
       title,
       icon,
       slug,
       published,
-      updatedAt: new Date(),
+      updated_at: new Date(),
     })
     .match({ id });
 };
 
 const checkSlug = async (slug: string) => {
   const { data, error } = await supabase
-    .from<PageProps>("Pages")
+    .from<PageProps>("pages")
     .select()
     .match({ slug })
     .single();

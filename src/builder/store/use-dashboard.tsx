@@ -12,7 +12,7 @@ interface PageStore {
 }
 
 const deletePage = async (id: string) => {
-  await supabase.from("Pages").delete().match({ id });
+  await supabase.from("pages").delete().match({ id });
 };
 
 export const useDashboardStore = create<PageStore>(

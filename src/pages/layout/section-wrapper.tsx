@@ -19,23 +19,7 @@ const SectionWrapper: FC<{ section: SectionProps }> = ({
   const { isBuilder } = useRoute();
 
   return (
-    <Box
-      as="section"
-      role="group"
-      p={1}
-      sx={{
-        ...(isBuilder && {
-          ":hover, :focus": {
-            border: "none",
-            outline: "none",
-            ring: 2,
-            ringColor: "primary.600",
-          },
-        }),
-      }}
-      rounded="sm"
-      position="relative"
-    >
+    <Box as="section" role="group" rounded="sm" position="relative">
       {isBuilder && (
         <HStack
           w="100%"
@@ -45,7 +29,6 @@ const SectionWrapper: FC<{ section: SectionProps }> = ({
           rounded="md"
           pos="absolute"
           bottom={-12}
-          //   display="none"
           _groupHover={{
             display: "flex",
           }}

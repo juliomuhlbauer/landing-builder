@@ -4,8 +4,8 @@ export interface PageProps {
   title: string;
   icon: string;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
   slug: string;
   published: boolean;
   sections: SectionProps[];

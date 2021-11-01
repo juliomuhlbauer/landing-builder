@@ -36,7 +36,7 @@ export default LivePage;
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { data, error } = await supabase
-    .from<PageProps>("Pages")
+    .from<PageProps>("pages")
     .select()
     .match({ slug: context.params?.slug, published: true })
     .single();

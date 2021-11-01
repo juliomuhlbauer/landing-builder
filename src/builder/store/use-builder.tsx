@@ -48,7 +48,7 @@ export interface BuilderStore {
 
 const addPage = async (page: PageProps) => {
   const { data, error } = await supabase
-    .from<PageProps>("Pages")
+    .from<PageProps>("pages")
     .insert(page)
     .single();
   if (error) console.error(error);

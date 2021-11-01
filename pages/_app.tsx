@@ -9,6 +9,7 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/inter/800.css";
 import "@fontsource/inter/900.css";
+import { UserContextProvider } from "@/utils/auth";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,7 +18,9 @@ function App({ Component, pageProps }: AppProps) {
         <title>Landing Builder</title>
       </Head>
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <UserContextProvider>
+          <Component {...pageProps} />
+        </UserContextProvider>
       </ChakraProvider>
     </>
   );

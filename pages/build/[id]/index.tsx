@@ -24,9 +24,9 @@ const BuildPage = () => {
   useEffect(() => {
     const getPages = async () => {
       const { data, error } = await supabase
-        .from<PageProps>("Pages")
+        .from<PageProps>("pages")
         .select()
-        .match({ id: router.query.id, user: userId })
+        .match({ slug: router.query.id, user: userId })
         .single();
       if (error || data === null) {
         console.error(error);
@@ -38,7 +38,7 @@ const BuildPage = () => {
     if (router.query.id && userId) {
       getPages();
     }
-  }, [router, userId]);
+  }, [router, setPage, userId]);
 
   return (
     <>

@@ -1,7 +1,6 @@
-import EditableText from "@/pages/components/editable-text";
 import { heroSample } from "@/utils";
-import { Box, Heading, Link, Stack } from "@chakra-ui/layout";
-import { Button, Skeleton } from "@chakra-ui/react";
+import { Box, Heading, Stack } from "@chakra-ui/layout";
+import { Skeleton } from "@chakra-ui/react";
 
 const SkeletonHero = () => {
   const section = heroSample();

@@ -22,14 +22,14 @@ interface HeaderProps {
 
 const savePage = async (page: PageProps) => {
   await supabase
-    .from("Pages")
+    .from("pages")
     .update({
       title: page.title,
       icon: page.icon,
       slug: page.slug,
       sections: page.sections,
       published: page.published,
-      updatedAt: new Date(),
+      updated_at: new Date(),
     })
     .match({ id: page.id });
 };

@@ -68,8 +68,8 @@ export const createPage = ({
     icon: icon || randomEmoji(),
     slug: id,
     sections: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    created_at: new Date(),
+    updated_at: new Date(),
     published: false,
     user: user,
     product: {
