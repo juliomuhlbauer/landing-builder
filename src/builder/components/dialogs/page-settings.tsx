@@ -26,6 +26,7 @@ import {
 } from "@chakra-ui/react";
 import { BaseEmoji, Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
+import { useRouter } from "next/router";
 import { FC, memo, useEffect, useState } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
@@ -106,6 +107,8 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
     published,
     pagePublished,
   ]);
+
+  const router = useRouter();
 
   return (
     <Modal isOpen={modal.isOpen} onClose={modal.onClose} isCentered>
@@ -208,6 +211,7 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
                             published,
                           });
                         }
+                        router.replace(`/build/${slug}`);
                       });
                     } else {
                       updatePage({
@@ -217,6 +221,7 @@ const PageSettings: FC<PageSettingsProps> = ({ modal }) => {
                         published,
                       });
                       savePage({ title, icon, slug, id: pageId, published });
+                      router.replace(`/build/${slug}`);
                     }
                   }
                 }}

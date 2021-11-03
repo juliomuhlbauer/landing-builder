@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/layout";
 import Head from "next/head";
 import PageLayout from "@/pages/layout";
 import { PageProps } from "@/types/pages";
-import { HomeHeader } from "@/builder/home/header";
+import { HomeHeader } from "@/builder/site/header";
 
 const sections: SectionProps[] = [
   {

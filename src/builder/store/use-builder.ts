@@ -1,6 +1,6 @@
 import { immer } from "@/lib/immer";
 import { supabase } from "@/lib/supabase";
-import { PageProps } from "@/types/pages";
+import { CreatePageProps, PageProps } from "@/types/pages";
 import {
   createPage,
   findItem,
@@ -27,6 +27,7 @@ interface UpdatePage {
   slug: string;
   published: boolean;
 }
+
 export interface BuilderStore {
   page: PageProps;
   setPage: (page: PageProps) => void;
@@ -34,11 +35,8 @@ export interface BuilderStore {
     title,
     icon,
     user,
-  }: {
-    title: string;
-    icon: string;
-    user: string;
-  }) => Promise<PageProps | null>;
+    sections,
+  }: CreatePageProps) => Promise<PageProps | null>;
   updatePage: ({ title, icon, slug, published }: UpdatePage) => void;
   addSection: () => void;
   removeSection: (id: string) => void;
@@ -51,7 +49,7 @@ const addPage = async (page: PageProps) => {
     .from<PageProps>("pages")
     .insert(page)
     .single();
-  if (error) console.error(error);
+  if (error) alert(error.message);
   return data;
 };
 
@@ -63,8 +61,8 @@ export const useBuilderStore = create<BuilderStore>(
         state.page = page;
       });
     },
-    createPage: ({ title = "", icon = "", user }) => {
-      const newPage = createPage({ title, icon, user });
+    createPage: ({ title, icon, user, sections }) => {
+      const newPage = createPage({ title, icon, user, sections });
 
       set((state) => {
         state.page = newPage;

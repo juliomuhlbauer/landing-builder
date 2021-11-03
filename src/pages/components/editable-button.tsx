@@ -77,12 +77,17 @@ export const EditableButton: FC<{ section: SectionProps }> = ({ section }) => {
         </Box>
       ) : button.isInternal ? (
         <NextLink href={button.url} passHref>
-          <Button as={Link} colorScheme="primary">
+          <Button as={Link} colorScheme="primary" rounded="full">
             {button.text}
           </Button>
         </NextLink>
       ) : (
-        <Button as={Link} href={button.url} colorScheme="primary">
+        <Button
+          as={Link}
+          href={button.url}
+          colorScheme="primary"
+          rounded="full"
+        >
           {button.text}
         </Button>
       )}

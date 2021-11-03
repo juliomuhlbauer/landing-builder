@@ -17,3 +17,10 @@ export interface PageProps {
     pricing: string;
   };
 }
+
+export interface CreatePageProps {
+  title: string;
+  icon: string;
+  user: string;
+  sections?: SectionProps[];
+}

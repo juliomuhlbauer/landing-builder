@@ -1,14 +1,14 @@
-import { useBuilderStore } from "@/builder/store/use-builder";
-import { Center, Stack } from "@chakra-ui/layout";
 import BuilderLayout from "@/builder/layout";
+import { useBuilderStore } from "@/builder/store/use-builder";
+import { borderColor } from "@/theme/colors";
+import { useUser } from "@/utils/auth";
+import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
-import { Button } from "@chakra-ui/button";
-import { useState } from "react";
-import { borderColor } from "@/theme/colors";
-import { useRouter } from "next/router";
+import { Center, Stack } from "@chakra-ui/layout";
 import confetti from "canvas-confetti";
-import { useUser } from "@/utils/auth";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const NewPage = () => {
   const { createPage } = useBuilderStore();
@@ -52,7 +52,6 @@ const NewPage = () => {
                     } else router.push("/build");
                   })
                   .catch((error) => {
-                    console.log(error);
                     alert(error.message);
                     router.push("/build");
                   });

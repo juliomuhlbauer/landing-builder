@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { data, error } = await supabase
     .from<PageProps>("pages")
     .select()
-    .match({ slug: context.params?.slug, published: true })
+    .match({ slug: context.params?.page, published: true })
     .single();
 
   return {
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = showcase.map((page) => ({
     params: {
-      slug: page.slug,
+      page: page.slug,
     },
   }));
 

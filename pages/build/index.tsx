@@ -40,7 +40,7 @@ const HomeBuild = () => {
         .order("updated_at", { ascending: false });
 
       if (error || data === null) {
-        console.error(error);
+        error && alert(error.message);
       } else {
         setPages(data);
       }
@@ -49,13 +49,6 @@ const HomeBuild = () => {
       getPages();
     }
   }, [router, setPages, userId]);
-
-  if (pages.length > 1) {
-    console.log(
-      new Date(pages[0].updated_at).getTime() -
-        new Date(pages[1].updated_at).getTime()
-    );
-  }
 
   return (
     <>

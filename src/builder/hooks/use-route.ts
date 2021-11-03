@@ -9,7 +9,7 @@ export const useRoute = () => {
     [router.route]
   );
 
-  const isEditor = useMemo(() => router.query.id?.length, [router.query]);
+  const isEditor = useMemo(() => router.query.build?.length, [router.query]);
 
   return { isBuilder, isEditor };
 };

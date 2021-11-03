@@ -1,4 +1,4 @@
-import { PageProps } from "@/types/pages";
+import { CreatePageProps, PageProps } from "@/types/pages";
 import { HeroProps } from "@/types/sections";
 import {
   adjectives,
@@ -45,29 +45,28 @@ const generateRandom = () => {
     Math.floor(Math.random() * 100000) +
     alphabet[Math.floor(Math.random() * alphabet.length)];
 
-  const id = randomName.toLowerCase().replace(/\s/g, "-") + "-" + randomId;
+  const slug = randomName.toLowerCase().replace(/\s/g, "-") + "-" + randomId;
 
   const name = randomName;
-  return { id, name };
+  return { slug, name };
 };
 
 export const createPage = ({
   title,
   icon,
   user,
-}: {
-  title: string;
-  icon: string;
-  user: string;
-}): PageProps => {
-  const { id, name } = generateRandom();
+  sections,
+}: CreatePageProps): PageProps => {
+  const { slug, name } = generateRandom();
+
+  const id = v4();
 
   return {
-    id: id,
+    id,
     title: title || name,
     icon: icon || randomEmoji(),
-    slug: id,
-    sections: [],
+    slug,
+    sections: sections || [],
     created_at: new Date(),
     updated_at: new Date(),
     published: false,
@@ -82,3 +81,13 @@ export const createPage = ({
 };
 
 export const pageSample = createPage({ title: "", icon: "", user: "" });
+
+interface Product {
+  name: string;
+  link: string;
+  description: string;
+}
+
+const CreateSectionsByProduct = ({ name, link, description }: Product) => {
+  // const
+};

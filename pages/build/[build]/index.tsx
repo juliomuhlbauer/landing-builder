@@ -21,24 +21,26 @@ const BuildPage = () => {
 
   const { userId } = useUser();
 
+  const slug = router.query.build;
+
   useEffect(() => {
-    const getPages = async () => {
+    const getPage = async () => {
       const { data, error } = await supabase
         .from<PageProps>("pages")
         .select()
-        .match({ slug: router.query.id, user: userId })
+        .match({ slug: slug, user: userId })
         .single();
       if (error || data === null) {
-        console.error(error);
+        alert(error?.message);
       } else {
         setPage(data);
         setLoading(false);
       }
     };
-    if (router.query.id && userId) {
-      getPages();
+    if (slug && userId) {
+      getPage();
     }
-  }, [router, setPage, userId]);
+  }, [slug, setPage, userId]);
 
   return (
     <>
