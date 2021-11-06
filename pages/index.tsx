@@ -5,6 +5,7 @@ import Head from "next/head";
 import PageLayout from "@/pages/layout";
 import { PageProps } from "@/types/pages";
 import { HomeHeader } from "@/builder/site/header";
+import { theme } from "@/theme";
 
 const sections: SectionProps[] = [
   {
@@ -14,7 +15,6 @@ const sections: SectionProps[] = [
       title: "Build your product, we handle the rest",
       button: {
         text: "Get Started",
-        url: "/build",
         isInternal: true,
       },
       subtitle:
@@ -36,9 +36,9 @@ const page: PageProps = {
   user: "eb26fd2f-f862-49ff-b87e-aa08fa8b8a22",
   product: {
     name: "Landing builder",
-    pricing: "$5.90/mo",
     link: "/",
     description: "Build your product, we handle the rest",
+    category: "Web App",
   },
 };
 
@@ -49,7 +49,7 @@ const HomePage = () => {
         <title>Landing Builder</title>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <PageLayout page={page} header={<HomeHeader page={page} />}>
+      <PageLayout page={page} header={<HomeHeader page={page} />} theme={theme}>
         <Box my={16}>
           <Sections sections={sections} />
         </Box>

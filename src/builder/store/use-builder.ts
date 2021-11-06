@@ -12,12 +12,7 @@ import create from "zustand";
 
 interface UpdateProps {
   id: string;
-  type:
-    | "hero-title"
-    | "hero-subtitle"
-    | "hero-image"
-    | "hero-button-text"
-    | "hero-button-link";
+  type: "hero-title" | "hero-subtitle" | "hero-image" | "hero-button-text";
   content: string;
 }
 
@@ -31,12 +26,7 @@ interface UpdatePage {
 export interface BuilderStore {
   page: PageProps;
   setPage: (page: PageProps) => void;
-  createPage: ({
-    title,
-    icon,
-    user,
-    sections,
-  }: CreatePageProps) => Promise<PageProps | null>;
+  createPage: ({ user, product }: CreatePageProps) => Promise<PageProps | null>;
   updatePage: ({ title, icon, slug, published }: UpdatePage) => void;
   addSection: () => void;
   removeSection: (id: string) => void;
@@ -61,12 +51,13 @@ export const useBuilderStore = create<BuilderStore>(
         state.page = page;
       });
     },
-    createPage: ({ title, icon, user, sections }) => {
-      const newPage = createPage({ title, icon, user, sections });
+    createPage: ({ user, product }) => {
+      const newPage = createPage({ user, product });
 
       set((state) => {
         state.page = newPage;
       });
+
       return addPage(newPage);
     },
     updatePage: ({ title, icon, slug, published }) => {
@@ -106,15 +97,7 @@ export const useBuilderStore = create<BuilderStore>(
 
           case "hero-button-text":
             section.hero.button = {
-              url: section.hero.button?.url || "/",
               text: content,
-            };
-            break;
-
-          case "hero-button-link":
-            section.hero.button = {
-              url: content,
-              text: section.hero.button?.text || "",
             };
             break;
         }
@@ -124,7 +107,6 @@ export const useBuilderStore = create<BuilderStore>(
       set(({ page }) => {
         findItem(page.sections, id).hero.button = {
           text: "Get started",
-          url: "/",
         };
       });
     },

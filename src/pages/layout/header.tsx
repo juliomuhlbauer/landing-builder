@@ -34,7 +34,9 @@ const Header: FC<HeaderProps> = ({ page }) => {
           )}
         </HStack>
 
-        <Button colorScheme="primary">Get started</Button>
+        <Button as={Link} href={page.product.link} colorScheme="primary">
+          Get started
+        </Button>
       </HStack>
     </Container>
   );

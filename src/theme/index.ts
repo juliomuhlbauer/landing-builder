@@ -17,7 +17,7 @@ const colors = {
   primary: base.colors.cyan,
 };
 
-const theme = extendTheme({
+export const theme = extendTheme({
   config,
   fonts,
   colors,
@@ -28,4 +28,18 @@ const theme = extendTheme({
   },
 });
 
-export default theme;
+const pagesConfig: ThemeConfig = {
+  initialColorMode: "light",
+  useSystemColorMode: false,
+};
+
+export const pagesTheme = extendTheme({
+  pagesConfig,
+  fonts,
+  colors,
+  components,
+  styles: globalStyles,
+  shadows: {
+    outline: `0 0 0 1px ${colors.primary[400]}`,
+  },
+});

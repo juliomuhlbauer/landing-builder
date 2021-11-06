@@ -9,7 +9,6 @@ export interface HeroProps {
     image: string;
     button?: {
       text: string;
-      url: string;
       isInternal?: boolean;
     };
   };

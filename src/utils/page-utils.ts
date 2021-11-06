@@ -1,12 +1,8 @@
 import { CreatePageProps, PageProps } from "@/types/pages";
-import { HeroProps } from "@/types/sections";
-import {
-  adjectives,
-  animals,
-  uniqueNamesGenerator,
-} from "unique-names-generator";
+import { HeroProps, SectionProps } from "@/types/sections";
 import { v4 } from "uuid";
 import { randomEmoji } from "./random-emoji";
+import slugfy from "slug";
 
 export const sectionNames = {
   hero: "Hero",
@@ -24,63 +20,61 @@ export const heroSample = (): HeroProps => {
   };
 };
 
-const generateRandom = () => {
-  const randomAdjective = uniqueNamesGenerator({
-    dictionaries: [adjectives],
-    length: 1,
-    style: "capital",
-  });
-
-  const randomAnimal = uniqueNamesGenerator({
-    dictionaries: [animals],
-    length: 1,
-    style: "capital",
-  });
-
-  const randomName = randomAdjective + " " + randomAnimal;
-
+const generateRandom = (name: string) => {
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
   const randomId =
     Math.floor(Math.random() * 100000) +
     alphabet[Math.floor(Math.random() * alphabet.length)];
 
-  const slug = randomName.toLowerCase().replace(/\s/g, "-") + "-" + randomId;
+  const slug = slugfy(name) + "-" + randomId;
 
-  const name = randomName;
-  return { slug, name };
+  return { slug };
 };
 
-export const createPage = ({
-  title,
-  icon,
-  user,
-  sections,
-}: CreatePageProps): PageProps => {
-  const { slug, name } = generateRandom();
+export const createPage = ({ user, product }: CreatePageProps): PageProps => {
+  const { slug } = generateRandom(product.name);
 
   const id = v4();
 
+  const sections: SectionProps[] = [
+    {
+      type: "hero",
+      id: v4(),
+      hero: {
+        title: "Get started",
+        subtitle: product.description,
+        image: "/samples/plataform.png",
+        button: {
+          text: "Get started",
+        },
+      },
+    },
+  ];
+
   return {
     id,
-    title: title || name,
-    icon: icon || randomEmoji(),
+    title: product.name,
+    icon: randomEmoji(),
     slug,
-    sections: sections || [],
+    sections: sections,
     created_at: new Date(),
     updated_at: new Date(),
     published: false,
     user: user,
-    product: {
-      name: "",
-      link: "",
-      description: "",
-      pricing: "",
-    },
+    product,
   };
 };
 
-export const pageSample = createPage({ title: "", icon: "", user: "" });
+export const pageSample = createPage({
+  user: "",
+  product: {
+    name: "",
+    link: "",
+    description: "",
+    category: "",
+  },
+});
 
 interface Product {
   name: string;

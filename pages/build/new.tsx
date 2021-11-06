@@ -6,6 +6,7 @@ import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Center, Stack } from "@chakra-ui/layout";
+import { Heading } from "@chakra-ui/react";
 import confetti from "canvas-confetti";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -13,16 +14,25 @@ import { useState } from "react";
 const NewPage = () => {
   const { createPage } = useBuilderStore();
 
-  const [title, setTitle] = useState("");
-  const [icon, setIcon] = useState("");
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
 
   const router = useRouter();
 
   const { userId } = useUser();
 
+  const product = {
+    name,
+    link,
+    category,
+    description,
+  };
+
   return (
     <BuilderLayout title="New page">
-      <Center minH="2xl">
+      <Center my={8}>
         <Stack
           spacing={6}
           p={8}
@@ -32,27 +42,55 @@ const NewPage = () => {
           rounded="md"
           boxShadow="lg"
         >
-          <FormControl id="title">
-            <FormLabel>Page title</FormLabel>
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Heading size="lg">What is your product?</Heading>
+          <FormControl id="product_name">
+            <FormLabel>Name</FormLabel>
+            <Input
+              autoComplete="off"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </FormControl>
-          <FormControl id="icon">
-            <FormLabel>Page icon</FormLabel>
-            <Input value={icon} onChange={(e) => setIcon(e.target.value)} />
+
+          <FormControl id="product_link">
+            <FormLabel>Link</FormLabel>
+            <Input
+              autoComplete="off"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+            />
+          </FormControl>
+
+          <FormControl id="product_category">
+            <FormLabel>Category</FormLabel>
+            <Input
+              autoComplete="off"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            />
+          </FormControl>
+
+          <FormControl id="product_description">
+            <FormLabel>Description</FormLabel>
+            <Input
+              autoComplete="off"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </FormControl>
 
           <Button
             onClick={() => {
               userId &&
-                createPage({ title, icon, user: userId })
+                createPage({ user: userId, product })
                   .then((response) => {
                     if (response !== null) {
-                      router.push(`/build/${response.id}`);
+                      router.push(`/build/${response.slug}`);
                       confetti();
                     } else router.push("/build");
                   })
                   .catch((error) => {
-                    alert(error.message);
+                    alert("create page error:" + error.message);
                     router.push("/build");
                   });
             }}

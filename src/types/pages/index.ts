@@ -1,5 +1,12 @@
 import { SectionProps } from "../sections";
 
+interface ProductProps {
+  name: string;
+  link: string;
+  category: string;
+  description: string;
+  // image: string;
+}
 export interface PageProps {
   title: string;
   icon: string;
@@ -10,17 +17,10 @@ export interface PageProps {
   published: boolean;
   sections: SectionProps[];
   user: string;
-  product: {
-    name: string;
-    link: string;
-    description: string;
-    pricing: string;
-  };
+  product: ProductProps;
 }
 
 export interface CreatePageProps {
-  title: string;
-  icon: string;
-  user: string;
-  sections?: SectionProps[];
+  user: PageProps["user"];
+  product: PageProps["product"];
 }

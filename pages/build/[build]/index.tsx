@@ -10,6 +10,7 @@ import { Box, Skeleton } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "@/utils/auth";
+import { pagesTheme } from "@/theme";
 
 const BuildPage = () => {
   const router = useRouter();
@@ -53,7 +54,7 @@ const BuildPage = () => {
             </Stack>
           </Container>
         ) : (
-          <PageLayout page={page}>
+          <PageLayout page={page} theme={pagesTheme}>
             <Box my={8}>
               <Sections sections={page.sections} />
             </Box>

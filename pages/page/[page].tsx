@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import PageLayout from "@/pages/layout";
 import NotFound from "@/pages/layout/404";
 import Sections from "@/pages/sections";
+import { pagesTheme } from "@/theme";
 import { PageProps } from "@/types/pages";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
@@ -25,7 +26,7 @@ const LivePage: FC<LivePageProps> = ({ page }) => {
         />
       </Head>
 
-      <PageLayout page={page}>
+      <PageLayout page={page} theme={pagesTheme}>
         <Sections sections={page.sections} />
       </PageLayout>
     </>
