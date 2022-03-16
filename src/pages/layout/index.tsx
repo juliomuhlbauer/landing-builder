@@ -1,10 +1,6 @@
 import { PageProps } from "@/types/pages";
 import { Box, Container } from "@chakra-ui/layout";
-import {
-  ChakraProvider,
-  ChakraProviderProps,
-  LightMode,
-} from "@chakra-ui/react";
+import { ChakraProvider, ChakraProviderProps } from "@chakra-ui/react";
 import Head from "next/head";
 import { FC, ReactElement } from "react";
 import { PageProvider } from "../utils/page-context";
@@ -28,14 +24,12 @@ const PageLayout: FC<PageLayoutProps> = ({ children, page, header, theme }) => {
       </Head>
       <ChakraProvider theme={theme}>
         <PageProvider page={page}>
-          <LightMode>
-            {header || <Header page={page} />}
-            <Container maxW="container.lg">
-              <Box as="main" my={8}>
-                {children}
-              </Box>
-            </Container>
-          </LightMode>
+          {header || <Header page={page} />}
+          <Container maxW="container.lg">
+            <Box as="main" my={8}>
+              {children}
+            </Box>
+          </Container>
         </PageProvider>
       </ChakraProvider>
     </>
