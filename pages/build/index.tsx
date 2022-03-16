@@ -119,14 +119,14 @@ const HomeBuild = () => {
                     <HStack>
                       <IconButton
                         icon={<Icon as={FiExternalLink} />}
-                        href={`/page/${page.id}`}
-                        isExternal
+                        // href={`/page/${page.id}`}
                         aria-label="View page"
                         variant="ghost"
                         onClick={(e) => {
                           e.preventDefault();
                           window.open(`/page/${page.slug}`, "_blank")?.focus();
                         }}
+                        // isExternal
                       />
 
                       <PageMenu page={page} />
